@@ -51,13 +51,21 @@ Save to a `handoffs` folder in the OS temp directory: `${TMPDIR:-/tmp}/handoffs/
 
 Always tell the user the exact path. (Temp files may be cleared on reboot; that's fine — regenerate from the still-current artifacts if needed.)
 
-## Resuming
+**Update, don't duplicate:** before writing, check the `handoffs` folder for an existing handoff covering this work. If one exists, read it and update it in place rather than creating a second competing file.
 
-No separate skill is needed. In the fresh session, point at the file:
+## Receiving a handoff
+
+In the fresh session, point at the file:
 
 > Read `<temp-dir>/handoffs/<file>` and continue.
 
-The document's **Objective** + **Next action** + **Suggested next step** prime the session to act immediately.
+Then follow this protocol — receiving is where handoffs most often go wrong:
+
+1. **Read the whole document** before acting; don't run off the title alone.
+2. **Verify reality matches the handoff before acting.** Check the state it claims — `git status` / `git log`, that referenced files exist, build/test status. Handoffs go stale; the repo may have moved since it was written.
+3. **If reality contradicts the handoff, stop and surface it** to the user — don't blindly redo finished work or skip steps.
+4. **Do only the stated Next action and respect its scope and stop points** (e.g. "Task 1 only, then report"). Don't blast ahead into later work.
+5. Invoke the **Suggested next step** if one is given.
 
 ## Common mistakes
 
@@ -70,3 +78,5 @@ The document's **Objective** + **Next action** + **Suggested next step** prime t
 | Leaving secrets in the doc | Redact keys/tokens/PII before writing. |
 | Writing it after the session has gone cold | Write it while the context is still live. |
 | Assuming a specific workflow/skill exists | Suggest a next step only if one genuinely applies; keep it generic otherwise. |
+| (Receiving) acting on a handoff without checking current state | Verify `git status` / files / build first — handoffs go stale. |
+| (Receiving) blowing past the stated scope or stop point | Do only the Next action; respect "X only, then report". |
